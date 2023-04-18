@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import './App.css';
-import Cards from './components/Cards.jsx';
-import Nav from "./components/Nav"
+import Cards from './components/Cards/Cards';
+import Nav from "./components/Nav/Nav"
 import axios from "axios"
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import About from "./components/About"
-import Detail from "./components/Detail"
-import Error from './components/Error';
+import About from "./components/About/About"
+import Detail from "./components/Detail/Detail"
+import Error from './components/Error/Error';
 import Form from './components/Form/Form';
 import { useEffect } from 'react';
-import Favorites from './components/Favorites';
+import Favorites from './components/Favorite/Favorites';
 
 const URL_BASE = `https://be-a-rym.up.railway.app/api/character`
 const API_KEY = `adf19002e024.e8aaaff920d6aff0a03e`

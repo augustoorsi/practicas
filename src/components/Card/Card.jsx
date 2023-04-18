@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {addFav, removeFav } from "../redux/action"
+import {addFav, removeFav } from "../../redux/action"
 import { connect } from "react-redux";
 
 export function Card({id,name,status,species,gender,origin,onClose,image, addFav, removeFav, myFavorites}){
