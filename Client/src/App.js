@@ -16,6 +16,7 @@ import Favorites from './components/Favorite/Favorites';
 const URL_NEW = `http://localhost:3001/rickandmorty/character`
 
 function App() {
+   const location = useLocation()
    let [characters, setCharacters] = useState([])
    const[access, setAccess]=useState(false)
    let EMAIL = "augusford@hotmail.com"
@@ -25,13 +26,29 @@ function App() {
    useEffect(()=>{
       !access && navigate("/")},[access, navigate])
 
-   const login = (userData)=>{
-      if (EMAIL === userData.email && PASSWORD === userData.password){
-         setAccess(true)
-         navigate("/home")
-      }
+      // const login=(userData)=> {
+      //    const { email, password } = userData;
+      //    const URL = 'http://localhost:3001/rickandmorty/login/';
+      //    axios(URL + `?email=${email}&password=${password}`)
+      //    .then(({ data }) => {
+      //       const { access } = data;
+      //       setAccess(access);
+      //       access && navigate('/home');
+      //    });
+      // }
 
-   }
+      const login = async(userData)=>{
+         try {
+            const { email, password } = userData;
+            const URL = 'http://localhost:3001/rickandmorty/login/';
+            const {data}= await axios(URL + `?email=${email}&password=${password}`)
+            const {access} = data
+            setAccess(access)
+            access && navigate("/home")
+         } catch (error) {
+            
+         }
+      }
 
    const onClose =(id)=>{
       console.log(id);
@@ -39,17 +56,27 @@ function App() {
       setCharacters(filterCharacter)
    }
 
-   const onSearch=(id)=> {
-      axios(`${URL_NEW}/${id}`).then(({ data }) => {
-         if (data.name) {
-            setCharacters((oldChars) => [...oldChars, data]);
-         } else {
-            alert('¡No hay personajes con este ID!');
-         }
-      });
+   // const onSearch=(id)=> {
+   //    axios(`${URL_NEW}/${id}`).then(({ data }) => {
+   //       if (data.name) {
+   //          setCharacters((oldChars) => [...oldChars, data]);
+   //       } else {
+   //          alert('¡No hay personajes con este ID!');
+   //       }
+   //    });
+   // }
+
+   const onSearch = async(id)=>{
+      try {
+         const response = await axios(`${URL_NEW}/${id}`)
+         const {data} = response
+         if(!(characters.find((charc=> charc.id == id))))
+         if (data.name) setCharacters((oldChars) => [...oldChars, data])
+      } catch (error) {
+         return alert('¡No hay personajes con este ID!')
+      }
    }
 
-   const location = useLocation()
 
    return (
       <div className='App'>
