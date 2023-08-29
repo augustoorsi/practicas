@@ -1,0 +1,13 @@
+div{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    margin: 10px;
+    gap:10px;
+}
+
+div img{
+    margin: 10px;
+    max-height: 400px;
+}
